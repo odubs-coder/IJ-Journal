@@ -173,7 +173,93 @@ async function pullLive(){
   }
 }
 pullLive();
-setInterval(pullLive, 1000);
+let liveSocket;
+let reconnectDelay = 1000;
+
+function connectLiveSocket() {
+  const wsBase = API_BASE.replace(/^http/, "ws");
+
+  liveSocket = new WebSocket(wsBase + "/ws");
+
+  liveSocket.onopen = () => {
+    console.log("GPRO live socket connected");
+
+    reconnectDelay = 1000;
+
+    $("liveDot").className = "dot live";
+    $("liveState").textContent = "GPRO LIVE";
+    $("liveTime").textContent = "Real-time connection";
+  };
+
+  liveSocket.onmessage = event => {
+    try {
+      const data = JSON.parse(event.data);
+
+      if (
+        (data.type === "trade" || data.type === "snapshot") &&
+        typeof data.price === "number"
+      ) {
+        $("cur").value = data.price.toFixed(4);
+
+        $("livePrice").textContent =
+          "$" + data.price.toFixed(4);
+
+        lastLiveTs =
+          data.timestamp || Date.now();
+      }
+
+      if (
+        typeof data.usdToGbp === "number" &&
+        data.usdToGbp > 0
+      ) {
+        $("fx").value =
+          data.usdToGbp.toFixed(6);
+      }
+
+      calc();
+
+      $("liveDot").className = "dot live";
+      $("liveState").textContent = "GPRO LIVE";
+
+      $("liveTime").textContent =
+        "Updated " +
+        new Date(lastLiveTs).toLocaleTimeString(
+          "en-GB",
+          {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+          }
+        );
+
+    } catch (error) {
+      console.error(
+        "Invalid live message",
+        error
+      );
+    }
+  };
+
+  liveSocket.onclose = () => {
+    $("liveDot").className = "dot";
+    $("liveState").textContent =
+      "Reconnecting…";
+
+    setTimeout(() => {
+      connectLiveSocket();
+    }, reconnectDelay);
+
+    reconnectDelay =
+      Math.min(reconnectDelay * 2, 10000);
+  };
+
+  liveSocket.onerror = () => {
+    liveSocket.close();
+  };
+}
+
+connectLiveSocket();
+
 
 calc();
 </script>
