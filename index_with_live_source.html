@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>GoPro — Investment Journal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#161C42;--bg2:#1D2455;--glass:rgba(255,255,255,.062);--glass2:rgba(255,255,255,.10);
+ --line:rgba(255,255,255,.13);--line2:rgba(255,255,255,.24);--vio:#9B7DFF;--cyan:#4FE3FF;
+ --mint:#3FF5C0;--rose:#FF6B8A;--sun:#FFCE7A;--peach:#FF9E7D;
+ --ink:#F4F6FF;--mid:#B4BEE4;--dim:#8590C4;
+ --grad:linear-gradient(120deg,#9B7DFF,#4FE3FF 55%,#3FF5C0);
+ --f:"Outfit",system-ui,-apple-system,sans-serif;--m:"JetBrains Mono",ui-monospace,Menlo,monospace;--r:26px
+}
+*{box-sizing:border-box;margin:0;padding:0}html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);font-family:var(--f);color:var(--ink);font-size:17px;line-height:1.6;font-weight:400;min-height:100vh;padding-bottom:52px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button,input{font-family:inherit;font-size:inherit;color:inherit}button{cursor:pointer;background:none;border:none}.m{font-family:var(--m);font-variant-numeric:tabular-nums}
+.aur{position:fixed;inset:-20%;z-index:-2;pointer-events:none;filter:blur(60px);opacity:.85}.aur b{position:absolute;display:block;border-radius:50%}
+.b1{width:56vw;height:56vw;background:radial-gradient(circle,#7C5CFF,transparent 68%);top:-8%;left:-12%;animation:f1 24s ease-in-out infinite alternate}
+.b2{width:48vw;height:48vw;background:radial-gradient(circle,#3FD9FF,transparent 68%);top:14%;right:-14%;animation:f2 30s ease-in-out infinite alternate}
+.b3{width:52vw;height:52vw;background:radial-gradient(circle,#2BE8B0,transparent 70%);bottom:-10%;left:8%;animation:f3 27s ease-in-out infinite alternate}
+.b4{width:34vw;height:34vw;background:radial-gradient(circle,#FF7FA6,transparent 70%);bottom:22%;right:6%;opacity:.62;animation:f4 33s ease-in-out infinite alternate}
+@keyframes f1{to{transform:translate(9vw,7vh) scale(1.16)}}@keyframes f2{to{transform:translate(-8vw,11vh) scale(1.12)}}
+@keyframes f3{to{transform:translate(11vw,-8vh) scale(1.2)}}@keyframes f4{to{transform:translate(-6vw,-9vh) scale(1.25)}}
+.veil{position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(18,22,56,.55),rgba(13,16,44,.80))}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}.mint{color:var(--mint)}.rose{color:var(--rose)}.sun{color:var(--sun)}
+header{position:sticky;top:0;z-index:30;background:rgba(22,28,66,.72);backdrop-filter:blur(26px) saturate(150%);border-bottom:1px solid rgba(255,255,255,.10)}
+.hin{max-width:1000px;margin:0 auto;padding:16px 20px 0}.hrow{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.wm{display:flex;align-items:baseline;gap:8px}.wm .a{font-weight:300;font-size:24px;color:var(--mid)}.wm .b{font-weight:600;font-size:24px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hbtn{font-size:14px;font-weight:500;color:var(--mid);border:1px solid var(--line);border-radius:99px;padding:7px 14px;background:var(--glass)}
+.hbtn i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 9px var(--mint);margin-right:7px}
+.tabs{display:flex;gap:3px;margin-top:13px;overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1 0 auto;font-weight:500;font-size:15px;color:var(--dim);padding:11px 13px;border-radius:16px 16px 0 0;border-bottom:2px solid transparent;white-space:nowrap}
+.tab.on{color:var(--ink);font-weight:600;border-bottom-color:var(--vio);background:linear-gradient(180deg,rgba(155,125,255,.04),rgba(155,125,255,.20))}
+main{padding-top:20px}.hero{background:linear-gradient(125deg,rgba(155,125,255,.25),rgba(79,227,255,.11) 52%,rgba(63,245,192,.08));border:1px solid var(--line);border-radius:28px;padding:30px 24px;margin-bottom:14px;text-align:center;backdrop-filter:blur(22px);box-shadow:0 1px 0 rgba(255,255,255,.16) inset,0 24px 52px -28px rgba(0,0,0,.6)}
+.hero-k{font-size:13px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--mid)}.hero-v{font-family:var(--m);font-weight:600;font-size:clamp(42px,10.5vw,62px);letter-spacing:-.035em;line-height:1.04;margin-top:8px}.hero-s{font-size:15px;color:var(--mid);margin-top:9px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.st{background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:18px;padding:18px 12px;text-align:center;backdrop-filter:blur(16px)}
+.st-k{font-size:12px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--dim)}.st-v{font-family:var(--m);font-weight:600;font-size:23px;margin-top:6px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:24px;padding:24px;margin-bottom:16px;backdrop-filter:blur(22px) saturate(140%);box-shadow:0 1px 0 rgba(255,255,255,.10) inset,0 20px 46px -26px rgba(0,0,0,.65)}
+.ch{font-size:13px;font-weight:600;letter-spacing:.10em;text-transform:uppercase;color:var(--dim);margin-bottom:15px}
+label{display:block;font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;margin:12px 0 6px}
+input{width:100%;background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:14px;padding:11px 13px;outline:none}
+input:focus{border-color:var(--vio);box-shadow:0 0 20px -12px var(--vio)}
+.results{display:grid;grid-template-columns:1fr 1fr;gap:12px}.metric{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:17px}.metric-k{font-size:11.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.07em}.metric-v{font-family:var(--m);font-size:21px;font-weight:600;margin-top:5px}
+.big{grid-column:1/-1}.big .metric-v{font-size:34px}.scenario{margin-top:12px}
+.btnrow{display:flex;gap:8px;margin-top:15px;flex-wrap:wrap}.btn{padding:11px 17px;border-radius:99px;border:1px solid var(--line2);background:linear-gradient(115deg,rgba(155,125,255,.22),rgba(79,227,255,.08));font-weight:600}.btn:hover{border-color:var(--vio)}
+.btn.ghost{background:var(--glass);color:var(--mid)}.note{font-size:12px;color:var(--dim);line-height:1.5;margin-top:12px}
+table{width:100%;border-collapse:collapse;min-width:650px}th{text-align:left;color:var(--dim);font-size:10px;text-transform:uppercase;letter-spacing:.08em;padding:10px;border-bottom:1px solid var(--line)}
+td{padding:12px 10px;border-bottom:1px solid rgba(255,255,255,.07);font-family:var(--m);font-size:12px}.tablewrap{overflow:auto}
+.empty{text-align:center;color:var(--dim);padding:25px}.full{margin-bottom:14px}
+@media(max-width:720px){.stats{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.wrap{padding:0 15px}.hin{padding-left:15px;padding-right:15px}}
+@media(max-width:430px){.stats{grid-template-columns:1fr 1fr}.hero{padding:25px 16px}.card{padding:19px}.metric-v{font-size:19px}}
+
+.livebar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:18px;
+  padding:13px 16px;margin-bottom:16px}
+.liveleft{display:flex;align-items:center;gap:10px}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--sun);box-shadow:0 0 10px var(--sun)}
+.dot.live{background:var(--mint);box-shadow:0 0 12px var(--mint)}
+.dot.off{background:var(--rose);box-shadow:0 0 12px var(--rose)}
+.livet{font-weight:600;font-size:15px}
+.lives{font-family:var(--m);font-size:12px;color:var(--dim)}
+.liveprice{font-family:var(--m);font-size:18px;font-weight:600}
+
+</style>
+</head>
+<body>
+<div class="aur"><b class="b1"></b><b class="b2"></b><b class="b3"></b><b class="b4"></b></div><div class="veil"></div>
+<header><div class="hin"><div class="hrow"><div class="wm"><span class="a">Investment</span><span class="b">Journal</span></div><button class="hbtn"><i></i>GO PRO</button></div></div></header>
+<main class="wrap">
+
+<div class="livebar">
+  <div class="liveleft">
+    <span class="dot" id="liveDot"></span>
+    <div><div class="livet" id="liveState">Connecting to GPRO…</div><div class="lives" id="liveTime">Waiting for market data</div></div>
+  </div>
+  <div class="liveprice" id="livePrice">$—</div>
+</div>
+
+<section class="hero"><div class="hero-k">GoPro · Investment position</div><div class="hero-v" id="hero">$183.96</div><div class="hero-s"><span id="heroSub" class="mint">+40.0% · +$52.56 unrealised</span></div></section>
+<div class="stats">
+<div class="st"><div class="st-k">Shares</div><div class="st-v" id="sShares">146</div></div>
+<div class="st"><div class="st-k">Entry</div><div class="st-v">$0.90</div></div>
+<div class="st"><div class="st-k">Current</div><div class="st-v" id="sCurrent">$1.26</div></div>
+<div class="st"><div class="st-k">Price gain</div><div class="st-v mint" id="sGain">+$0.36</div></div>
+</div>
+<div class="grid">
+<section class="card"><div class="ch">Position details</div>
+<label>Amount invested (£)</label><input id="invested" type="number" step=".01" value="98">
+<label>Number of shares</label><input id="shares" type="number" step="1" value="146">
+<label>Purchase price ($)</label><input id="buy" type="number" step=".0001" value=".90">
+<label>Current price ($)</label><input id="cur" type="number" step=".0001" value="1.26" readonly>
+<label>USD → GBP rate</label><input id="fx" type="number" step=".000001" value="0.738045" readonly><div class="note" style="margin-top:6px">USD → GBP is refreshed automatically by the live-price service.</div>
+<div class="btnrow"><button class="btn" onclick="saveSnap()">+ Save snapshot</button><button class="btn ghost" onclick="clearHistory()">Clear history</button></div>
+<p class="note">GBP value is estimated when an exchange rate is entered. Stock return is based on the share price alone.</p>
+</section>
+<section class="card"><div class="ch">GBP currency conversion</div>
+<div class="metric big"><div class="metric-k">Current USD → GBP rate</div><div class="metric-v" id="fxDisplay">£0.738045</div></div>
+<div class="results" style="margin-top:10px">
+<div class="metric"><div class="metric-k">Original investment</div><div class="metric-v" id="gbpInvested">£98.00</div></div>
+<div class="metric"><div class="metric-k">Current value</div><div class="metric-v" id="gbpMain">£135.73</div></div>
+</div>
+<p class="note">GBP is the main reporting currency. USD prices are retained only as the market's quoted share price.</p>
+</section>
+<section class="card"><div class="ch">Performance</div>
+<div class="results">
+<div class="metric big"><div class="metric-k">Current position value</div><div class="metric-v" id="value">£135.73</div></div>
+<div class="metric"><div class="metric-k">Unrealised gain</div><div class="metric-v mint" id="gain">+£38.78</div></div>
+<div class="metric"><div class="metric-k">Return</div><div class="metric-v mint" id="pct">+40.00%</div></div>
+<div class="metric"><div class="metric-k">USD equivalent</div><div class="metric-v" id="gbp">—</div></div>
+<div class="metric"><div class="metric-k">Original value</div><div class="metric-v" id="orig">£97.00</div></div>
+</div>
+<div class="ch" style="margin-top:18px">Price scenarios</div>
+<div class="results"><div class="metric scenario"><div class="metric-k">At $2</div><div class="metric-v" id="p2">$292.00</div></div><div class="metric scenario"><div class="metric-k">At $5</div><div class="metric-v" id="p5">$730.00</div></div><div class="metric scenario"><div class="metric-k">At $10</div><div class="metric-v" id="p10">$1,460.00</div></div></div>
+</section></div>
+<section class="card full"><div class="ch">Investment history</div><div class="tablewrap"><table><thead><tr><th>Date</th><th>USD price</th><th>Position value (GBP)</th><th>Gain (GBP)</th><th>Return</th></tr></thead><tbody id="history"></tbody></table></div><p class="note">Snapshots are stored locally in this browser, with GBP as the main reporting currency.</p></section>
+</main>
+<script>
+const $=id=>document.getElementById(id),n=id=>parseFloat($(id).value)||0;
+const money=(v,c="$")=>c+(v||0).toLocaleString("en-GB",{minimumFractionDigits:2,maximumFractionDigits:2});
+["shares","buy"].forEach(x=>$(x).addEventListener("input",calc));
+function calc(){
+ let sh=n("shares"),b=n("buy"),c=n("cur"),fx=n("fx"),d=c-b,p=b?d/b*100:0,v=sh*c,g=sh*d;
+ let gbpV=v*fx, gbpG=g*fx, gbpOrig=sh*b*fx;
+ $("hero").textContent=money(gbpV,"£");$("heroSub").textContent=(p>=0?"+":"")+p.toFixed(1)+"% · "+(gbpG>=0?"+":"")+money(gbpG,"£")+" unrealised";
+ $("heroSub").className=gbpG>=0?"mint":"rose";$("sShares").textContent=sh;$("sCurrent").textContent=money(c);$("sGain").textContent=(d>=0?"+":"")+money(d);
+ $("value").textContent=money(gbpV,"£");$("gain").textContent=(gbpG>=0?"+":"")+money(gbpG,"£");$("gain").className="metric-v "+(gbpG>=0?"mint":"rose");$("pct").textContent=(p>=0?"+":"")+p.toFixed(2)+"%";$("pct").className="metric-v "+(p>=0?"mint":"rose");$("orig").textContent=money(gbpOrig,"£");
+ $("gbp").textContent=money(v,"$");$("fxDisplay").textContent="£"+fx.toFixed(6);$("gbpInvested").textContent=money(gbpOrig,"£");$("gbpMain").textContent=money(gbpV,"£");
+ [2,5,10].forEach(x=>$("p"+x).textContent=money(sh*x*fx,"£"));render()
+}
+function hist(){return JSON.parse(localStorage.getItem("tjInvestmentHistory")||"[]")}
+function saveSnap(){let b=n("buy"),c=n("cur"),sh=n("shares"),fx=n("fx"),h=hist();h.push({date:new Date().toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"}),price:c,valueGBP:sh*c*fx,gainGBP:sh*(c-b)*fx,pct:b?(c-b)/b*100:0});localStorage.setItem("tjInvestmentHistory",JSON.stringify(h));render()}
+function clearHistory(){if(confirm("Clear all investment snapshots?")){localStorage.removeItem("tjInvestmentHistory");render()}}
+function render(){let h=hist();$("history").innerHTML=h.length?h.slice().reverse().map(r=>`<tr><td>${r.date}</td><td>${money(r.price)}</td><td>${money(r.valueGBP,"£")}</td><td class="${r.gainGBP>=0?"mint":"rose"}">${r.gainGBP>=0?"+":""}${money(r.gainGBP,"£")}</td><td class="${r.pct>=0?"mint":"rose"}">${r.pct>=0?"+":""}${r.pct.toFixed(2)}%</td></tr>`).join(""):`<tr><td colspan="5" class="empty">No snapshots yet — save your first GoPro monthly position above.</td></tr>`}
+
+const DEFAULT_API = "http://localhost:8787";
+const qp = new URLSearchParams(location.search);
+const API_BASE = (qp.get("api") || localStorage.getItem("goproLiveApi") || DEFAULT_API).replace(/\/$/,"");
+if(qp.get("api")) localStorage.setItem("goproLiveApi", qp.get("api"));
+
+let lastLiveTs = 0;
+let lastServerTs = 0;
+let currentSource = "Connecting";
+let liveSocket = null;
+let reconnectDelay = 1000;
+
+function applyLiveData(d){
+  if(typeof d.price === "number" && d.price > 0){
+    $("cur").value = d.price.toFixed(4);
+    $("livePrice").textContent = money(d.price);
+  }
+
+  if(typeof d.usdToGbp === "number" && d.usdToGbp > 0){
+    $("fx").value = d.usdToGbp.toFixed(6);
+  }
+
+  if(d.marketTimestamp || d.timestamp){
+    lastLiveTs = d.marketTimestamp || d.timestamp;
+  }
+
+  if(d.serverTime){
+    lastServerTs = d.serverTime;
+  } else {
+    lastServerTs = Date.now();
+  }
+
+  if(d.source){
+    currentSource = d.source;
+  }
+
+  calc();
+
+  const isOvernight =
+    typeof currentSource === "string" &&
+    currentSource.toLowerCase().includes("stocktwits");
+
+  $("liveDot").className = "dot live";
+
+  $("liveState").textContent =
+    isOvernight
+      ? "GPRO OVERNIGHT"
+      : "GPRO LIVE";
+
+  const nowText = new Date(lastServerTs || Date.now())
+    .toLocaleTimeString("en-GB", {
+      hour:"2-digit",
+      minute:"2-digit",
+      second:"2-digit"
+    });
+
+  const marketText = lastLiveTs
+    ? new Date(lastLiveTs).toLocaleTimeString("en-GB", {
+        hour:"2-digit",
+        minute:"2-digit",
+        second:"2-digit"
+      })
+    : "—";
+
+  const sourceLabel =
+    isOvernight
+      ? "Overnight price"
+      : currentSource.includes("trade")
+        ? "Finnhub live trade"
+        : "Finnhub quote";
+
+  $("liveTime").textContent =
+    `Updated ${marketText} · ${sourceLabel}`;
+}
+
+let firstPriceRefresh = true;
+
+async function pullLiveFallback(){
+  try{
+    const endpoint = firstPriceRefresh
+      ? API_BASE + "/api/gpro?refresh=1"
+      : API_BASE + "/api/gpro";
+
+    firstPriceRefresh = false;
+
+    const r = await fetch(endpoint, {cache:"no-store"});
+    if(!r.ok) throw new Error("HTTP "+r.status);
+
+    const d = await r.json();
+    applyLiveData(d);
+  }catch(e){
+    if(!liveSocket || liveSocket.readyState !== WebSocket.OPEN){
+      $("liveDot").className = "dot off";
+      $("liveState").textContent = "Live feed offline";
+      $("liveTime").textContent = "Waiting for price server";
+    }
+  }
+}
+
+function connectLiveSocket(){
+  const wsBase = API_BASE.replace(/^http/, "ws");
+
+  liveSocket = new WebSocket(wsBase + "/ws");
+
+  liveSocket.onopen = () => {
+    reconnectDelay = 1000;
+    $("liveDot").className = "dot live";
+    $("liveState").textContent = "GPRO LIVE";
+  };
+
+  liveSocket.onmessage = event => {
+    try{
+      const d = JSON.parse(event.data);
+
+      if(
+        d.type === "snapshot" ||
+        d.type === "price" ||
+        d.type === "heartbeat" ||
+        d.type === "status" ||
+        d.type === "fx"
+      ){
+        applyLiveData(d);
+      }
+    }catch(err){
+      console.error("Invalid live message", err);
+    }
+  };
+
+  liveSocket.onclose = () => {
+    $("liveDot").className = "dot";
+    $("liveState").textContent = "Reconnecting…";
+
+    setTimeout(connectLiveSocket, reconnectDelay);
+    reconnectDelay = Math.min(reconnectDelay * 2, 10000);
+  };
+
+  liveSocket.onerror = () => {
+    try{ liveSocket.close(); }catch{}
+  };
+}
+
+pullLiveFallback();
+connectLiveSocket();
+
+/* HTTP fallback only. Real-time prices come through /ws. */
+setInterval(pullLiveFallback, 15000);
+
+calc();
+</script>
+</body>
+</html>
